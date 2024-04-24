@@ -1,0 +1,455 @@
+﻿<krpano version="1.21" title="Restaurante">
+
+	<include url="skin/vtourskin.xml" />
+
+	<include url="plugins/circle_hotspots.xml" />
+
+	<!-- * pop up plugin -->
+	<plugin name="pp_blur" keep="true"
+		url="%VIEWER%/plugins/pp_blur.js"
+		enabled="true"
+		range="0.0"
+		linearrgb="false"
+		order="1"
+		phase="2"
+	/>
+
+
+	<style name="infospot"
+		renderer="webgl"
+		type="text"
+		css="color:#FFFFFF; font-size:16px; font-weight:bold; text-align:center;"
+		width="80" height="80"
+		bgroundedge="42"
+		bgalpha="0.75"
+		bgcolor="0x555555"
+		bgborder="1 0xFFFFFF 1"
+		bgshadow="0 0 16 0x0 0.5"
+		txtshadow="0 0 3 0x0 1.0"
+		mergedalpha="false"
+		vcenter="true"
+		oversampling="2"
+		mipmapping="true"
+		zoom="true"
+		capture="false"
+	/>
+
+	<!--* Logo web-->
+	<layer	name="background_logo"
+			type="container"
+			keep="true"
+			width="120"
+			height="120"
+			bgcolor="0x000000"
+			bgalpha="0.8"
+			zorder="9997"
+			enabled="true"
+			align="topleft"
+			x = "20"
+			y = "10">
+		<layer	name="skin_logo" 
+				url="skin/logo.png" 
+				keep="true" 
+				align="topleft" 
+				onclick="openurl(https://www.missadribet.com)" 
+				zorder="9998" />
+	</layer>
+
+	
+	<!--* Logo movil-->
+	<layer	name="background_logo"
+	devices="mobile"
+	type="container"
+	keep="true"
+	width="100"
+	height="100"
+	scale="0.6"
+	bgcolor="0x000000"
+	bgalpha="0.8"
+	zorder="9997"
+	enabled="true"
+	align="topleft"
+	x = "20"
+	y = "10">
+		<layer	name="skin_logo" 
+				width="100"
+				height="100"
+				url="skin/logo.png" 
+				keep="true" 
+				align="topleft" 
+				onclick="openurl(https://www.missadribet.com)" 
+				zorder="9998" />
+	</layer>
+
+
+	<!--* Intro -->
+	<layer	name="intro"
+			type="container"
+			keep="true"
+			width="100%"
+			height="100%"
+			bgcolor="0x000000"
+			bgalpha="0.8"
+			zorder="9999"
+			enabled="true"
+			bgcapture="true"
+			onloaded="delay_intro()"
+			onclick="cerrar_intro()"
+		>
+
+		<!--* Logos intro web-->
+		<layer	name="intro_logo"
+				alpha="0"
+				enabled="true"
+				url="skin/logo.png"
+				y="-150"
+				align="center"
+				scale="1.5"
+				onclick="openurl(https://www.missadribet.com)"
+		/>
+
+		<layer	name="intro_guide"
+				alpha="0"
+				enabled="true"
+				url="skin/desktop-guide.png"
+				y="100"
+				align="center"
+				scale="0.5"
+				onclick="cerrar_intro()"
+		/>
+
+		<!--* Logos intro movil-->
+		<layer	name="intro_logo"
+				devices="mobile"
+				alpha="0"
+				enabled="true"
+				url="skin/logo.png"
+				y="-150"
+				align="center"
+				scale="1"
+				onclick="openurl(https://www.missadribet.com)"
+		/>
+
+		<layer	name="intro_guide"
+				devices="mobile"
+				alpha="0"
+				enabled="true"
+				url="skin/desktop-guide.png"
+				y="100"
+				align="center"
+				scale="0.3"
+				onclick="cerrar_intro()"
+		/>
+	</layer>
+
+	<!--? Acciones -->
+
+	<!--* Accion pop up -->
+	<action name="circlepos" scope="localonly" args="pos, total">
+		calc(caller.ox, -100 * cos((pos-1)/total * Math.PI * 2.0) );
+		calc(caller.oy, -100 * sin((pos-1)/total * Math.PI * 2.0) );
+	</action>
+
+	<action name="popup" scope="private:POPUP" args="type, content, width, height, scrollbars, onclose_callback"><![CDATA[
+		if(popup, break(); );
+		
+		addlayer('popup_bg', popup_bg);
+		set(popup_bg,
+			type=container,
+			align=lefttop, width=100%, height=100%,
+			zorder=99,
+			handcursor=false,
+			bgcapture=true,
+			capture=false,
+			//bgcolor=0x123456, onloaded='tween(bgalpha,0.3,1.0);',	// optional: colorize the background
+			onclick='popup_close()'
+		);
+			
+		
+		addlayer('popup', popup);
+		set(popup,
+			type=container,
+			parent='popup_bg',
+			width=75%,
+			height=75%,
+			align=center,
+			bgborder='1 0x555555 1',
+			bgcolor=0x555555,
+			bgalpha=0.7,
+			bgshadow='0 10 20 0x000000 0.5',
+			bgcapture=true,
+			maskchildren=false,
+			capture=true,
+			handcursor=false,
+			alpha=0
+		);
+		
+		/*
+		// optional: add a close button
+		addlayer('popup_close_x', closex);
+		set(closex,
+			url='%CURRENTXML%/closex.png',
+			parent='popup',
+			align=righttop,
+			edge=center,
+			scale=0.5,
+			zorder=99,
+			alpha=0.25,
+			onover='tween(alpha,1)',
+			onout='tween(alpha,0.25)',
+			ondown='tween(alpha,1)',
+			onup='tween(alpha,0.25)',
+			onclick='popup_close()'
+		);
+		*/
+
+		if(type == 'html',
+			set(popup.type, html);
+			copy(popup.html, content);
+			copy(popup.htmlscrollbars, scrollbars);
+
+		  ,type == 'iframe',
+			set(popup.type, iframe);
+			copy(popup.iframeurl, content);
+
+		  ,type == 'image',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=1,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				width=-20, height=-20,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+			);
+		);
+
+		tween(global.plugin[pp_blur].range, 40.0);
+		delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); );
+
+		// events when the popup should get closed automatically
+		set(global.events[popup].onremovepano, popup_close() );
+	]]></action>
+	
+	
+	<action name="popup_close" scope="private:POPUP">
+		if (onclose_callback,
+			callback = onclose_callback;
+			onclose_callback = null;
+			scope(global, get(callback) );
+		);
+		
+		set(global.plugin[popup_bg].enabled, false);
+		set(global.events[popup].name, null);
+		tween(global.plugin[pp_blur].range, 0.0);
+		tween(global.layer[popup_bg].bgalpha, 0.0, 0.25);
+		tween(global.layer[popup].alpha, 0.0, 0.25, default,
+			removelayer('popup_bg', true);
+			scope(private:POPUP, delete(popup); );
+		);
+	</action>
+
+
+	<action name="popup_imageloaded" scope="private:POPUP">
+		calc(imgw, caller.imagewidth + 20);
+		calc(imgh, caller.imageheight + 20);
+		calc(maxw, global.stagewidth*0.9);
+		calc(maxh, global.stageheight*0.8);
+		if(imgw GT maxw,
+			calc(imgh, round(imgh * maxw / imgw));
+			copy(imgw, maxw);
+		);
+		if(imgh GT maxh,
+			calc(imgw, round(imgw * maxh / imgh));
+			copy(imgh, maxh);
+		);
+
+		set(global.layer[get(caller.parent)], width=get(imgw), height=get(imgh) );
+	</action>
+
+	<!--* Cerrar intro -->
+	<action name="cerrar_intro">
+		tween(layer[intro].alpha, 0);
+		set(layer[intro].enabled, false);
+	</action>
+
+	<!--* Animación intro -->
+	<action name="delay_intro">
+		delayedcall(0.5, 
+			tween(layer[intro_logo].alpha, 1);
+			tween(layer[intro_guide].alpha, 1);
+		);
+	</action>
+
+	<action name="showModel">
+		<model name="objeto3d"
+			   url="%1"
+			   ath="0"
+			   atv="0"
+			   scale="1"
+			   />
+	</action>	
+	
+	<!--! Ajustes Krpano -->
+
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="false"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="true"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="true"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="true"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values 
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+	
+
+	<!--* Restaurante -->
+	<scene name="scene_01" title="Restaurante" onstart="" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="153.802" vlookat="23.651" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/01.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/01.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="scene_04" style="hs_circle" ath="21.089" atv="7.954" linkedscene="scene_04" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 1"/>
+		<hotspot name="scene_03" style="hs_circle" ath="98.932" atv="10.836" linkedscene="scene_03" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 2"/>
+		<hotspot name="scene_02" style="hs_circle" ath="138.276" atv="2.390" linkedscene="scene_02" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 3"/>
+
+	</scene>
+
+	<!--* Sala 1 -->
+	<scene name="scene_02" title="Sala 1" onstart="" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="18.364" vlookat="11.778" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/02.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/02.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="scene_01" style="hs_circle" ath="153.855" atv="9.279" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 4"/>
+		<hotspot	name="bolso_pop_up" 
+					url="skin/Bolso.png"
+					html="HTML"
+					onloaded="circlepos(1,6);"
+					onclick="popup('html', get(data[data_html_example].content), 600, 300, true );"
+					ath="145.422" 
+					atv="24.077" 
+					SCALE="0.3" 
+					keep="true" 
+					distorted="false"
+		/>
+		
+	</scene>
+	
+	<!--* Sala 2 -->
+	<scene name="scene_03" title="Sala 2" onstart="" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="451.738" vlookat="35.995" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/03.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/03.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="scene_01" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
+
+	</scene>
+
+	<!--* Terraza -->
+	<scene name="scene_04" title="Terraza" onstart="" thumburl="panos/04.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+		
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="-134.129" vlookat="22.824" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/04.tiles/preview.jpg" />
+
+		<image>
+			<cube url="panos/04.tiles/pano_%s.jpg" />
+		</image>
+
+		<hotspot name="scene_01" style="hs_circle" ath="-153.299" atv="2.605" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 6"/>
+
+	</scene>
+
+	<!-- ? Datas-->
+	<data name="data_html_example"><![CDATA[
+		<div style="padding:10px; height: 100%; display: flex; flex-direction: row;">
+			<iframe src='https://sketchfab.com/models/d11ab8f981e34beb9e761d012d13281b/embed?ui_theme=dark&autostart=1' style='flex: 1; width: 47.5%; height: 95%; margin-right: 5%;' frameborder='0'></iframe>
+
+			<iframe src='https://es.louisvuitton.com/esp-es/productos/bolso-carryall-mm-monogram-nvprod3770015v/M46197' style='flex: 1; width: 47.5%; height: 95%;' frameborder='0'></iframe>
+		</div>
+	]]></data>
+	
+</krpano>
