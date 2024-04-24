@@ -144,6 +144,11 @@
 
 	<!--? Acciones -->
 
+	<!--* Accion Ocultar menu bar -->
+	<action autorun="onstart">
+ 	 	skin_hideskin(instant);
+	</action>
+
 	<!--* Accion pop up -->
 	<action name="circlepos" scope="localonly" args="pos, total">
 		calc(caller.ox, -100 * cos((pos-1)/total * Math.PI * 2.0) );
@@ -375,9 +380,9 @@
 			<cube url="panos/01.tiles/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="scene_04" style="hs_circle" ath="21.089" atv="7.954" linkedscene="scene_04" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 1"/>
-		<hotspot name="scene_03" style="hs_circle" ath="98.932" atv="10.836" linkedscene="scene_03" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 2"/>
-		<hotspot name="scene_02" style="hs_circle" ath="138.276" atv="2.390" linkedscene="scene_02" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 3"/>
+		<hotspot name="scene_04" distorted="true" style="hs_circle" ath="21.089" atv="7.954" linkedscene="scene_04" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 1"/>
+		<hotspot name="scene_03" distorted="true" style="hs_circle" ath="98.932" atv="10.836" linkedscene="scene_03" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 2"/>
+		<hotspot name="scene_02" distorted="true" style="hs_circle" ath="138.276" atv="2.390" linkedscene="scene_02" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 3"/>
 
 	</scene>
 
@@ -394,7 +399,7 @@
 			<cube url="panos/02.tiles/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="scene_01" style="hs_circle" ath="153.855" atv="9.279" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 4"/>
+		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="153.855" atv="9.279" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 4"/>
 		
 		<!-- * Hotspot pc-->
 		<hotspot	name="bolso_pop_up" 
@@ -408,6 +413,8 @@
 					SCALE="0.3" 
 					keep="false" 
 					distorted="true"
+					onover="tween(scale,0.35);"
+	       			onout="tween(scale,0.3);"
 		/>
 
 		<!--* Hotspot mobil-->
@@ -438,7 +445,7 @@
 			<cube url="panos/03.tiles/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="scene_01" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
+		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
 
 	</scene>
 
@@ -455,7 +462,7 @@
 			<cube url="panos/04.tiles/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="scene_01" style="hs_circle" ath="-153.299" atv="2.605" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 6"/>
+		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="-153.299" atv="2.605" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 6"/>
 
 	</scene>
 
