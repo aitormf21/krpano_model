@@ -400,10 +400,10 @@
 					html="HTML"
 					onloaded="circlepos(1,6);"
 					onclick="popup('html', get(data[data_html_example].content), 600, 300, true );"
-					ath="145.422" 
+					ath="158.422" 
 					atv="24.077" 
 					SCALE="0.3" 
-					keep="true" 
+					keep="false" 
 					distorted="true"
 		/>
 		
