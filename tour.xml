@@ -1,6 +1,7 @@
 ﻿<krpano version="1.21" title="Restaurante">
 
 	<include url="skin/vtourskin.xml" />
+	<include url="plugins/combobox.xml" />
 
 	<include url="plugins/circle_hotspots.xml" />
 
@@ -103,7 +104,6 @@
 				zorder="9998" />
 	</layer>
 
-
 	<!--* Intro -->
 	<layer	name="intro"
 			type="container"
@@ -163,6 +163,8 @@
 				onclick="cerrar_intro()"
 		/>
 	</layer>
+
+	
 
 	<!--? Acciones -->
 
@@ -279,7 +281,90 @@
 		);
 	</action>
 
+	<action name="popup_menu" scope="private:POPUP" args="type, content, width, height, scrollbars, onclose_callback"><![CDATA[
+		if(popup, break(); );
+		
+		addlayer('popup_bg', popup_bg);
+		set(popup_bg,
+			type=container,
+			align=lefttop, width=100%, height=100%,
+			zorder=99,
+			handcursor=false,
+			bgcapture=true,
+			capture=false,
+			//bgcolor=0x123456, onloaded='tween(bgalpha,0.3,1.0);',	// optional: colorize the background
+			onclick='popup_close()'
+		);
+			
+		
+		addlayer('popup', popup);
+		set(popup,
+			type=container,
+			parent='popup_bg',
+			width=75%,
+			height=75%,
+			align=center,
+			bgborder='1 0x555555 1',
+			bgcolor=0x555555,
+			bgalpha=0.7,
+			bgshadow='0 10 20 0x000000 0.5',
+			bgcapture=true,
+			maskchildren=false,
+			capture=true,
+			handcursor=false,
+			alpha=0
+		);
+		
+		/*
+		// optional: add a close button
+		addlayer('popup_close_x', closex);
+		set(closex,
+			url='%CURRENTXML%/closex.png',
+			parent='popup',
+			align=righttop,
+			edge=center,
+			scale=0.5,
+			zorder=99,
+			alpha=0.25,
+			onover='tween(alpha,1)',
+			onout='tween(alpha,0.25)',
+			ondown='tween(alpha,1)',
+			onup='tween(alpha,0.25)',
+			onclick='popup_close()'
+		);
+		*/
 
+		if(type == 'html',
+			set(popup.type, html);
+			copy(popup.html, content);
+			copy(popup.htmlscrollbars, scrollbars);
+
+		  ,type == 'iframe',
+			set(popup.type, iframe);
+			copy(popup.iframeurl, content);
+
+		  ,type == 'image',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=1,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				width=-20, height=-20,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+			);
+		);
+
+		tween(global.plugin[pp_blur].range, 40.0);
+		delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); );
+
+		// events when the popup should get closed automatically
+		set(global.events[popup].onremovepano, popup_close() );
+	]]></action>
+	
 	<action name="popup_imageloaded" scope="private:POPUP">
 		calc(imgw, caller.imagewidth + 20);
 		calc(imgh, caller.imageheight + 20);
@@ -387,7 +472,6 @@
 	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
 	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
 	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
-	
 
 	<!--* Restaurante -->
 	<scene name="scene_01" title="Restaurante" onstart="" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
