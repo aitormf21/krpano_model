@@ -2,7 +2,6 @@
 
 	<include url="skin/vtourskin.xml" />
 	<include url="plugins/combobox.xml" />
-	<include url="sidemenu.xml" />
 
 	<include url="plugins/circle_hotspots.xml" />
 
@@ -35,7 +34,7 @@
 		zoom="true"
 		capture="false"
 	/>
-	
+
 	<!--* Logo web-->
 	<layer	name="background_logo"
 			type="container"
