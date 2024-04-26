@@ -523,6 +523,21 @@
 	       			onout="tween(scale,0.06);"
 		/>
 
+		<hotspot	name="bolso2_pop_up" 
+					devices="desktop"
+					url="skin/bolso.png"
+					html="HTML"
+					onloaded="circlepos(1,6);"
+					onclick="popup('html', get(data[data_bolso_pc_2].content), 600, 300, true ); chinchon();"
+					ath="40" 
+					atv="20" 
+					SCALE="0.25" 
+					keep="false" 
+					distorted="true"
+					onover="tween(scale,0.35);"
+	       			onout="tween(scale,0.25);"
+		/>
+
 		<!--* Hotspot mobil-->
 		<hotspot	name="bolso_pop_up"
 					devices="mobile"
@@ -584,6 +599,16 @@
 			<iframe src='https://es.louisvuitton.com/esp-es/productos/bolso-carryall-mm-monogram-nvprod3770015v/M46197' style='flex: 1; width: 47.5%; height: 100%; ' frameborder=''></iframe>
 		</div>
 	]]></data>
+
+	<data name="data_bolso_pc_2"><![CDATA[
+    <div style="height: 100%; display: flex; flex-direction: row;">
+        <iframe src='https://sketchfab.com/models/87abf6a17f404079a8969d09aedc202b/embed?ui_theme=dark&autostart=1' style='flex: 1; width: 47.5%; height: 100%;' frameborder=''></iframe>
+        <button style="border: none; transform: translateX(-50%); position: absolute; bottom: 10px; left: 50%; color: black; padding: 8px 8px; cursor: pointer; border-radius: 5px; background-color: #66ccff; font-size: 13px; transition: transform 0.3s ease-in-out;">
+            <a href="https://es.louisvuitton.com/esp-es/productos/bolso-carryall-mm-monogram-nvprod3770015v/M46197" style="text-decoration: none; color: inherit;">Comprar aquí</a>
+        </button>
+    </div>
+]]></data>
+
 
 	<!-- *Data movil-->
 	<data name="data_bolso_mobil_1"><![CDATA[
