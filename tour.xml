@@ -22,6 +22,10 @@
 		playsound(test, audio/512.ogg|audio/512.mp3, 1);
 	</action>
 
+	<action name="chinchon">
+		playsound(test, audio/chinchon.ogg|audio/chinchon.mp3, 1);
+	</action>
+
 	<!-- * pop up plugin -->
 	<plugin name="pp_blur" keep="true"
 		url="%VIEWER%/plugins/pp_blur.js"
@@ -425,7 +429,7 @@
 					url="skin/bolso2.png"
 					html="HTML"
 					onloaded="circlepos(1,6);"
-					onclick="popup('html', get(data[data_bolso_pc_1].content), 600, 300, true );"
+					onclick="popup('html', get(data[data_bolso_pc_1].content), 600, 300, true ); chinchon();"
 					ath="158.422" 
 					atv="26.577" 
 					SCALE="0.06" 
