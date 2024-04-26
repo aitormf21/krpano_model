@@ -20,7 +20,7 @@
 		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
-		playsound(chinchon, audio/512.ogg|audio/512.mp3, 1);
+		playsound(512, audio/512.ogg|audio/512.mp3, 1);
 	</action>
 
 	<action name="chinchon">
@@ -481,7 +481,7 @@
 		<hotspot name="scene_02" distorted="true" style="hs_circle" ath="138.276" atv="2.390" linkedscene="scene_02" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 3"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(chinchon); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
 		 />
 
 	</scene>
@@ -534,7 +534,7 @@
 		/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(chinchon); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
 		 />
 	</scene>
 	
@@ -554,7 +554,7 @@
 		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(chinchon); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
 		 />
 	</scene>
 
@@ -574,7 +574,7 @@
 		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="-153.299" atv="2.605" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 6"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(chinchon); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
 		 />
 
 	</scene>
