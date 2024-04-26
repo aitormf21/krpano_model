@@ -4,6 +4,24 @@
 
 	<include url="plugins/circle_hotspots.xml" />
 
+	<!-- ? music plugin -->
+	<plugin name="soundinterface"
+		keep="true"		
+        url="plugins/soundinterface.js"
+        preload="true"
+        rootpath=""
+        volume="1.0"
+        mute="false"
+        />
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions() );
+		playsound(test, audio/512.ogg|audio/512.mp3, 1);
+	</action>
+
 	<!-- * pop up plugin -->
 	<plugin name="pp_blur" keep="true"
 		url="%VIEWER%/plugins/pp_blur.js"
@@ -399,41 +417,43 @@
 			<cube url="panos/02.tiles/pano_%s.jpg" />
 		</image>
 
-		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="153.855" atv="9.279" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 4"/>
+		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="153.855" atv="9.279" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 4" />
 		
 		<!-- * Hotspot pc-->
 		<hotspot	name="bolso_pop_up" 
 					devices="desktop"
-					url="skin/Bolso.png"
+					url="skin/bolso2.png"
 					html="HTML"
 					onloaded="circlepos(1,6);"
 					onclick="popup('html', get(data[data_bolso_pc_1].content), 600, 300, true );"
 					ath="158.422" 
-					atv="24.077" 
-					SCALE="0.3" 
+					atv="26.577" 
+					SCALE="0.06" 
 					keep="false" 
 					distorted="true"
-					onover="tween(scale,0.35);"
-	       			onout="tween(scale,0.3);"
+					onover="tween(scale,0.1);"
+	       			onout="tween(scale,0.06);"
 		/>
 
 		<!--* Hotspot mobil-->
 		<hotspot	name="bolso_pop_up"
 					devices="mobile"
-					url="skin/Bolso.png"
+					url="skin/bolso2.png"
 					html="HTML"
 					onloaded="circlepos(1,6);"
 					onclick="popup('html', get(data[data_bolso_mobil_1].content), 600, 300, true );"
 					ath="158.422" 
-					atv="24.077" 
-					SCALE="0.3" 
+					atv="26.577"  
+					SCALE="0.06" 
 					keep="false" 
 					distorted="true"
-/>
+					onover="tween(scale,0.1);"
+					onout="tween(scale,0.06);"
+		/>
 	</scene>
 	
 	<!--* Sala 2 -->
-	<scene name="scene_03" title="Sala 2" onstart="" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_03" title="Sala 2" onstart="" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="" >
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 

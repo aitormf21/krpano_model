@@ -1400,6 +1400,5 @@
 			removelayer('iphone_fullscreen_info');
 		);
 	</action>
-	
 
 </krpano>
