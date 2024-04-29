@@ -24,10 +24,10 @@
 	</action>
 
 	<action name="chinchon">
-		pausesoundtoggle(512);
-		playsound(chinchon, audio/chinchon.ogg |audio/chinchon.mp3, 0.5);
+		pausesound(512);
+		playsound(chinchon, audio/chinchon.ogg|audio/chinchon.mp3, 0.5);
 		delayedcall(1.75, stopsound(chinchon));
-		delayedcall(1.75, pausesoundtoggle(512));
+		delayedcall(2, pausesoundtoggle(512));
 	</action>
 
 	<!-- * pop up plugin -->
