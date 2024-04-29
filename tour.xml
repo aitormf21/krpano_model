@@ -1,4 +1,4 @@
-﻿<krpano version="1.21" title="Restaurante">
+﻿<krpano version="1.21" title="Restaurante" onstart="set(global.muted, false);">
 
 	<include url="skin/vtourskin.xml" />
 	<include url="plugins/combobox.xml" />
@@ -15,12 +15,52 @@
         mute="false"
         />
 
-	<!-- startup action - load the first scene -->
+	<action name="mute">
+    	set(plugin[soundinterface].volume, 0); 
+	</action>
+
+
+	<action name="unmute">
+    	set(plugin[soundinterface].volume, 1); 
+	</action>
+	
+
+	<action name="toggle_mute">
+		if(global.muted,
+			unmute();  
+			set(global.muted, false);
+			set(layer[audio_icon].url, 'skin/audio_on.png');
+			set(layer[audio_icon].y, 10);
+		,
+			mute();   
+			set(global.muted, true);
+			set(layer[audio_icon].url, 'skin/audio_off.png');
+			set(layer[audio_icon].y, 3);
+		);
+	</action>
+
+	<action name="check_mute_state">
+		if(global.muted,
+			mute();
+			set(layer[audio_icon].url, 'skin/audio_off.png');
+			set(layer[audio_icon].y, 3);
+		,
+			unmute(); 
+			set(layer[audio_icon].url, 'skin/audio_on.png');
+		);
+	</action>
+		
+	<action name="play_loop_sound">
+		stopsound(misound);  
+		playsound(512, audio/512.mp3|audio/512.ogg, 1, false); 
+		delayedcall(195, play_loop_sound());  
+	</action>
+
 	<action name="startup" autorun="onstart">
 		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
-		playsound(512, audio/512.ogg|audio/512.mp3, 1);
+		play_loop_sound();
 	</action>
 
 	<action name="chinchon">
@@ -465,7 +505,7 @@
 	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
 
 	<!--* Restaurante -->
-	<scene name="scene_01" title="Restaurante" onstart="" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_01" title="Restaurante" onstart="check_mute_state();" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" alt="" heading="" >
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -482,13 +522,13 @@
 		<hotspot name="scene_02" distorted="true" style="hs_circle" ath="138.276" atv="2.390" linkedscene="scene_02" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 3"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="toggle_mute();"
 		 />
 
 	</scene>
 
 	<!--* Sala 1 -->
-	<scene name="scene_02" title="Sala 1" onstart="" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_02" title="Sala 1" onstart="check_mute_state();" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -550,12 +590,12 @@
 		/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="toggle_mute();"
 		 />
 	</scene>
 	
 	<!--* Sala 2 -->
-	<scene name="scene_03" title="Sala 2" onstart="" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="" >
+	<scene name="scene_03" title="Sala 2" onstart="check_mute_state();" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="" >
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -570,12 +610,12 @@
 		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="toggle_mute();"
 		 />
 	</scene>
 
 	<!--* Terraza -->
-	<scene name="scene_04" title="Terraza" onstart="" thumburl="panos/04.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_04" title="Terraza" onstart="check_mute_state();" thumburl="panos/04.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
@@ -590,7 +630,7 @@
 		<hotspot name="scene_01" distorted="true" style="hs_circle" ath="-153.299" atv="2.605" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 6"/>
 
 		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);"
+		onclick="toggle_mute();"
 		 />
 
 	</scene>
