@@ -545,28 +545,14 @@
 			<cube url="panos/02.tiles/pano_%s.jpg" />
 		</image>
 
-    	
-		<lensflare_settings editor="true" 
-            ath="300.4" 
-			atv="-13.4" 
-			sun="-4" 
+		<lensflare_settings editor="false" 
+            ath="280.4" 
+			atv="-15.9" 
+			sun="0" 
 			glare="0.1" 
 			r_ring="0" 
 			exposure="true" 
-			exposure_bias="-1.0"
-		/>
-
-		
-
-    	
-		<lensflare_settings editor="true" 
-            ath="300.4" 
-			atv="-13.4" 
-			sun="-4" 
-			glare="0.1" 
-			r_ring="0" 
-			exposure="true" 
-			exposure_bias="-1.0"
+			exposure_bias="-0"
 		/>
 
 		
@@ -650,7 +636,17 @@
 
     	<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);" onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);" />
 
-    	<lensflare_settings editor="true" ath="-134.4" atv="-13.4" sun="0.1" glare="0.1" r_ring="0" exposure="false" exposure_bias="-1.0"/>
+		<!--! Lensflare Sala 2 -->
+    	<lensflare_settings editor="false" 
+			ath="-210.4" 
+			atv="-8.4" 
+			sun="0.1" 
+			glare="0.1" 
+			r_ring="0" 
+			exposure="false" 
+			exposure_bias="-1.0"
+		/>
+
 	</scene>
 
 
