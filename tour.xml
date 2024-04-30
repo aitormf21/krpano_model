@@ -5,6 +5,7 @@
 
 	<include url="plugins/circle_hotspots.xml" />
 	
+	
 	<!-- ? music plugin -->
 	<plugin name="soundinterface"
 		keep="true"		
@@ -530,9 +531,12 @@
 	<!--* Sala 1 -->
 	<scene name="scene_02" title="Sala 1" onstart="check_mute_state();" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
 		<include url="skin/lensflare.xml"/>
+
+		<include url="skin/lensflare.xml"/>
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
+		<view hlookat="18.364" vlookat="11.778" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
 		<view hlookat="18.364" vlookat="11.778" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
 
 		<preview url="panos/02.tiles/preview.jpg" />
@@ -540,6 +544,19 @@
 		<image>
 			<cube url="panos/02.tiles/pano_%s.jpg" />
 		</image>
+
+    	
+		<lensflare_settings editor="true" 
+            ath="300.4" 
+			atv="-13.4" 
+			sun="-4" 
+			glare="0.1" 
+			r_ring="0" 
+			exposure="true" 
+			exposure_bias="-1.0"
+		/>
+
+		
 
     	
 		<lensflare_settings editor="true" 
@@ -609,13 +626,15 @@
 	</scene>
 	
 	<!--* Sala 2 -->
-	<scene name="scene_03" title="Sala 2" onstart="check_mute_state();" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
+	<scene name="scene_03" title="Sala 2" onstart="" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" alt="" heading="">
    		<include url="skin/lensflare.xml"/>
 
-		<control bouncinglimits="calc:image.cube ? true : false" />
+    	<control bouncinglimits="calc:image.cube ? true : false" />
 
     	<view hlookat="451.738" vlookat="35.995" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
+    	<view hlookat="451.738" vlookat="35.995" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
 
+    	<preview url="panos/03.tiles/preview.jpg" />
     	<preview url="panos/03.tiles/preview.jpg" />
 
     	<image>
@@ -623,14 +642,17 @@
     	</image>
     
     	<hotspot name="scene_01" distorted="true" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
+    	<image>
+        	<cube url="panos/03.tiles/pano_%s.jpg" />
+    	</image>
+    
+    	<hotspot name="scene_01" distorted="true" style="hs_circle" ath="74.199" atv="14.507" linkedscene="scene_01" linkedscene_hoffset="0.0" use3dtransition="true" tag="Tag 5"/>
 
-		<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);"
-		onclick="toggle_mute();"
-		 />
     	<layer name="audio_icon" url="skin/audio_on.png" align="rightbottom" x="10" y="10" alpha="0.5" scale="0.2" onover="tween(alpha,1);" onout="tween(alpha,0.5);" onclick="pausesoundtoggle(512); switch(url, 'skin/audio_on.png', 'skin/audio_off.png'); switch(y, 10, 3);" />
 
     	<lensflare_settings editor="true" ath="-134.4" atv="-13.4" sun="0.1" glare="0.1" r_ring="0" exposure="false" exposure_bias="-1.0"/>
 	</scene>
+
 
 
 	<!--* Terraza -->
@@ -638,6 +660,7 @@
 		
 		<control bouncinglimits="calc:image.cube ? true : false" />
 
+		<view hlookat="-134.129" vlookat="22.824" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
 		<view hlookat="-134.129" vlookat="22.824" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="120" limitview="auto" />
 
 		<preview url="panos/04.tiles/preview.jpg" />
